@@ -9,7 +9,7 @@ Setup the `kapitan` CLI:
   with:
     python-version: 3.9
 - name: Setup Kapitan
-  uses: humaans/setup-kapitan-action@v2
+  uses: humaans/setup-kapitan-action@v2.2
   with:
     version: 0.30.0
     python-version: 3.9
