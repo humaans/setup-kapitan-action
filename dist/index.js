@@ -10,21 +10,30 @@ const core = __webpack_require__(280)
 const tc = __webpack_require__(54)
 const { getDownloadUrl } = __webpack_require__(36)
 
+function isInstalled(toolPath) {
+  return toolPath !== undefined && toolPath !== ''
+}
+
+async function installVersion(version, { pythonVersion }) {
+  const downloadUrl = getDownloadUrl({ kapitanVersion: version, pythonVersion })
+  const path = await tc.downloadTool(downloadUrl, './kapitan')
+
+  fs.chmodSync(path, '0755')
+  return tc.cacheFile(path, 'kapitan', 'kapitan', version)
+}
+
 async function setup() {
   try {
     // Get version of tool to be installed
     const kapitanVersion = core.getInput('version')
     const pythonVersion = core.getInput('python-version')
 
-    // Download the specific version of the tool
-    const downloadUrl = getDownloadUrl({ kapitanVersion, pythonVersion })
-    const path = await tc.downloadTool(downloadUrl, './kapitan')
-
-    fs.chmodSync(path, '0755')
-    // Expose the tool by adding it to the PATH
-    const dir = path.replace('/kapitan', '')
-    core.info(`Adding ${dir} to path`)
-    core.addPath(dir)
+    let toolPath = tc.find('kapitan', kapitanVersion)
+    if (!isInstalled(toolPath)) {
+      toolPath = await installVersion(kapitanVersion, { pythonVersion })
+    }
+    core.info(`Adding ${toolPath} to path`)
+    core.addPath(toolPath)
   } catch (e) {
     core.setFailed(e)
   }
