@@ -5,10 +5,9 @@ require('./sourcemap-register.js');module.exports =
 /***/ 629:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const path = __webpack_require__(622)
 const core = __webpack_require__(280)
 const tc = __webpack_require__(54)
-const { getDownloadObject } = __webpack_require__(36)
+const { getDownloadUrl } = __webpack_require__(36)
 
 async function setup() {
   try {
@@ -16,18 +15,12 @@ async function setup() {
     const kapitanVersion = core.getInput('version')
     const pythonVersion = core.getInput('python-version')
 
-    // Download the specific version of the tool, e.g. as a tarball/zipball
-    const download = getDownloadObject({ kapitanVersion, pythonVersion })
-    const pathToTarball = await tc.downloadTool(download.url)
-
-    // Extract the tarball/zipball onto host runner
-    const extract = download.url.endsWith('.zip')
-      ? tc.extractZip
-      : tc.extractTar
-    const pathToCLI = await extract(pathToTarball)
+    // Download the specific version of the tool
+    const downloadUrl = getDownloadUrl({ kapitanVersion, pythonVersion })
+    await tc.downloadTool(downloadUrl, './kapitan')
 
     // Expose the tool by adding it to the PATH
-    core.addPath(path.join(pathToCLI, download.binPath))
+    core.addPath('./')
   } catch (e) {
     core.setFailed(e)
   }
@@ -45,7 +38,11 @@ if (require.main === require.cache[eval('__filename')]) {
 /***/ 36:
 /***/ ((module) => {
 
-module.exports.getDownloadObject = function () {}
+module.exports.getDownloadUrl = function ({ kapitanVersion, pythonVersion }) {
+  const url = `https://github.com/humaans/setup-kapitan-action/blob/master/bin/kapitan-${kapitanVersion}-py${pythonVersion}.pex`
+
+  return url
+}
 
 
 /***/ }),
