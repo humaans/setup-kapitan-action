@@ -15,7 +15,9 @@ async function setup() {
 
     fs.chmodSync(path, '0755')
     // Expose the tool by adding it to the PATH
-    core.addPath('./')
+    const dir = path.replace('/kapitan', '')
+    core.info(`Adding ${dir} to path`)
+    core.addPath(dir)
   } catch (e) {
     core.setFailed(e)
   }
