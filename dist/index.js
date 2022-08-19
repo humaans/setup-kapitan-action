@@ -5,7 +5,6 @@ require('./sourcemap-register.js');module.exports =
 /***/ 629:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const fs = __webpack_require__(747)
 const core = __webpack_require__(280)
 const tc = __webpack_require__(54)
 const { getDownloadUrl } = __webpack_require__(36)
@@ -18,9 +17,8 @@ async function setup() {
 
     // Download the specific version of the tool
     const downloadUrl = getDownloadUrl({ kapitanVersion, pythonVersion })
-    const path = await tc.downloadTool(downloadUrl, './kapitan')
+    await tc.downloadTool(downloadUrl, './kapitan')
 
-    fs.chmodSync(path, '0755')
     // Expose the tool by adding it to the PATH
     core.addPath('./')
   } catch (e) {

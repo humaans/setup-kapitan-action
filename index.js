@@ -1,4 +1,3 @@
-const fs = require('fs')
 const core = require('@actions/core')
 const tc = require('@actions/tool-cache')
 const { getDownloadUrl } = require('./lib/utils')
@@ -11,9 +10,8 @@ async function setup() {
 
     // Download the specific version of the tool
     const downloadUrl = getDownloadUrl({ kapitanVersion, pythonVersion })
-    const path = await tc.downloadTool(downloadUrl, './kapitan')
+    await tc.downloadTool(downloadUrl, './kapitan')
 
-    fs.chmodSync(path, '0755')
     // Expose the tool by adding it to the PATH
     core.addPath('./')
   } catch (e) {
