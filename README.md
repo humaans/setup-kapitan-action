@@ -16,3 +16,7 @@ Setup the `kapitan` CLI:
 ```
 
 At the moment only python 3.9 with kapitan version 0.30.0 is supported, python version must match that which the pex file was created with, otherwise it will fail to execute.
+
+## License
+
+[MIT](LICENSE).
