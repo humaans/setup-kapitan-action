@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
       - name: Setup Kapitan
-        uses: humaans/setup-kapitan-action@v1.6
+        uses: humaans/setup-kapitan-action@v2
         with:
           version: ${{ inputs.version }}
           python-version: ${{ inputs.python-version }}
