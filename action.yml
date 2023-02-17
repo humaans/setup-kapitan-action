@@ -4,7 +4,7 @@ inputs:
   version:
     description: Version of Kapitan to install
     required: false
-    default: 0.30.0
+    default: 0.31.0
   python-version:
     description: Version of Python used in the workflow
     required: false
