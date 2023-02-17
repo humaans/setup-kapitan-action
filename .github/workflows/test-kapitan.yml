@@ -6,7 +6,7 @@ on:
       version:
         description: 'Kapitan version'
         required: true
-        default: '0.30.0'
+        default: '0.31.0'
       python-version:
         description: 'Python version'
         required: true
