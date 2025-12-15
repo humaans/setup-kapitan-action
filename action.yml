@@ -4,11 +4,11 @@ inputs:
   version:
     description: Version of Kapitan to install
     required: false
-    default: 0.31.0
+    default: '0.34.7'
   python-version:
     description: Version of Python used in the workflow
     required: false
-    default: 3.9
+    default: '3.11'
 runs:
-  using: node20
+  using: node24
   main: dist/index.js
