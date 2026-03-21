@@ -4,44 +4,44 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /***/ 8151:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const fs = __nccwpck_require__(9896)
-const core = __nccwpck_require__(7153)
-const tc = __nccwpck_require__(6454)
-const { getDownloadUrl } = __nccwpck_require__(4802)
+const fs = __nccwpck_require__(9896);
+const core = __nccwpck_require__(7153);
+const tc = __nccwpck_require__(6454);
+const { getDownloadUrl } = __nccwpck_require__(4802);
 
 function isInstalled(toolPath) {
-  return toolPath !== undefined && toolPath !== ''
+  return toolPath !== undefined && toolPath !== "";
 }
 
 async function installVersion(version, { pythonVersion }) {
-  const downloadUrl = getDownloadUrl({ kapitanVersion: version, pythonVersion })
-  const path = await tc.downloadTool(downloadUrl, './kapitan')
+  const downloadUrl = getDownloadUrl({ kapitanVersion: version, pythonVersion });
+  const path = await tc.downloadTool(downloadUrl, "./kapitan");
 
-  fs.chmodSync(path, '0755')
-  return tc.cacheFile(path, 'kapitan', 'kapitan', version)
+  fs.chmodSync(path, "0755");
+  return tc.cacheFile(path, "kapitan", "kapitan", version);
 }
 
 async function setup() {
   try {
     // Get version of tool to be installed
-    const kapitanVersion = core.getInput('version')
-    const pythonVersion = core.getInput('python-version')
+    const kapitanVersion = core.getInput("version");
+    const pythonVersion = core.getInput("python-version");
 
-    let toolPath = tc.find('kapitan', kapitanVersion)
+    let toolPath = tc.find("kapitan", kapitanVersion);
     if (!isInstalled(toolPath)) {
-      toolPath = await installVersion(kapitanVersion, { pythonVersion })
+      toolPath = await installVersion(kapitanVersion, { pythonVersion });
     }
-    core.info(`Adding ${toolPath} to path`)
-    core.addPath(toolPath)
+    core.info(`Adding ${toolPath} to path`);
+    core.addPath(toolPath);
   } catch (e) {
-    core.setFailed(e)
+    core.setFailed(e);
   }
 }
 
-module.exports = setup
+module.exports = setup;
 
 if (require.main === require.cache[eval('__filename')]) {
-  setup()
+  setup();
 }
 
 
@@ -51,10 +51,10 @@ if (require.main === require.cache[eval('__filename')]) {
 /***/ ((module) => {
 
 module.exports.getDownloadUrl = function ({ kapitanVersion, pythonVersion }) {
-  const url = `https://github.com/humaans/setup-kapitan-action/raw/master/bin/kapitan-${kapitanVersion}-py${pythonVersion}.pex`
+  const url = `https://github.com/humaans/setup-kapitan-action/raw/master/bin/kapitan-${kapitanVersion}-py${pythonVersion}.pex`;
 
-  return url
-}
+  return url;
+};
 
 
 /***/ }),

@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Kapitan version'
+        description: "Kapitan version"
         required: true
-        default: '0.34.7'
+        default: "0.34.7"
       python-version:
-        description: 'Python version'
+        description: "Python version"
         required: true
-        default: '3.11'
+        default: "3.11"
 
 jobs:
   test:

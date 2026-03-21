@@ -2,13 +2,6 @@
   "name": "setup-kapitan",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "lint": "healthier && prettier --check '**/*.{js,json,yml}'",
-    "format": "prettier --write '**/*.{js,json,yml}'",
-    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
-    "all": "npm run lint && npm run prepare"
-  },
   "keywords": [],
   "homepage": "https://github.com/github-developer/setup-gh",
   "license": "MIT",
@@ -16,18 +9,20 @@
     "type": "git",
     "url": "git+https://github.com/github-developer/setup-gh.git"
   },
+  "main": "index.js",
+  "scripts": {
+    "lint": "oxlint --ignore-pattern dist && oxfmt --check '**/*.{js,json,yml}'",
+    "format": "oxfmt --write '**/*.{js,json,yml}'",
+    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
+    "all": "npm run lint && npm run prepare"
+  },
   "dependencies": {
     "@actions/core": "^2.0.3",
     "@actions/tool-cache": "^3.0.1"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.4",
-    "healthier": "^7.0.0",
-    "prettier": "3.8.1"
-  },
-  "healthier": {
-    "ignore": [
-      "dist"
-    ]
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.2.0"
   }
 }
